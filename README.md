@@ -22,21 +22,20 @@ Drag and drop tables to arrange their positions.\
 Click the delete icon to remove a table.\
 Double-click on a table to edit its details.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+React: For building the user interface.\
+Redux Toolkit: For state management.\
+React Draggable: For drag-and-drop functionality.\
+Material-UI: For UI components like dialogs and buttons.\
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage Instructions
 
-## Learn More
+### `Clone the repository:`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Repository Link: [https://github.com/AmithASD/Floor-Management](https://github.com/AmithASD/Floor-Management)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This section has moved here: [git clone https://facebook.github.io/create-react-app/docs/code-splitting](git clone https://facebook.github.io/create-react-app/docs/code-splitting)
 
 ### Analyzing the Bundle Size
 
