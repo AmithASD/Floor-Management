@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, useForm } from 'react-hook-form';
-import { Box, TextField, Button, Typography, Switch, FormControlLabel, FormGroup } from '@mui/material';
-import { Label } from '@mui/icons-material';
+import { Box, TextField, Button, Typography, Switch, FormControlLabel, FormGroup, Checkbox } from '@mui/material';
+import { CheckBox, Label } from '@mui/icons-material';
 
 const TableDetailsForm = ({ roomId, tableId, onSubmit , selectedTable}) => {
   const {
@@ -79,6 +79,10 @@ const TableDetailsForm = ({ roomId, tableId, onSubmit , selectedTable}) => {
       </FormGroup>
       <Button type="submit" variant="contained" sx={{ mt: 2 }}>Save</Button>
       {/* </Form> */}
+
+      <FormGroup style={{marginTop:'50px'}}>
+         <FormControlLabel  control={<Checkbox />} label="Advanced Settings" />
+      </FormGroup>
     </Box>
   );
 };

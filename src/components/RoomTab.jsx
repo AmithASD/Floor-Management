@@ -99,6 +99,10 @@ const FloorManagement = () => {
     console.log(" Choose table =======>>>>>", selectedTable)
   }
 
+  const handleRoomSubmit = () => {
+    alert('added succefully')
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <Box display="flex" height="100vh">
@@ -121,7 +125,7 @@ const FloorManagement = () => {
             <Button variant="contained" color="success" onClick={handleOpenModal}>
               Add Room
             </Button>
-            <Button variant="outlined">Save Room</Button>
+            <Button variant="outlined" style={{marginLeft:'10px'}} onClick={handleRoomSubmit}>Save Room</Button>
           </Box>
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
