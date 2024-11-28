@@ -1,17 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tableReducer, { loadStateFromLocalStorage, saveStateToLocalStorage } from "./tableSlice";
-import { composeWithDevTools } from "@redux-devtools/extension";
+import tableReducer from "./tableSlice";
+import {
+  loadStateFromLocalStorage,
+  saveStateToLocalStorage,
+} from "../utills/localStorage";
 
 const preloadedState = loadStateFromLocalStorage();
 
 const store = configureStore({
-    reducer: {
-      tables: tableReducer,
-    },
-    preloadedState,
-  });
+  reducer: {
+    tables: tableReducer,
+  },
+  preloadedState,
+});
 
-  // Save state to localStorage on every state change
+// Save state to localStorage on every state change
 store.subscribe(() => {
   saveStateToLocalStorage(store.getState().tables);
 });

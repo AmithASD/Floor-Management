@@ -1,8 +1,21 @@
-export const saveLayout = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
+const LOCAL_STORAGE_KEY = "reduxTablesState";
+
+export const loadStateFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!serializedState) return undefined;
+    return JSON.parse(serializedState);
+  } catch (error) {
+    console.error("Error loading state from localStorage:", error);
+    return undefined;
+  }
 };
 
-export const loadLayout = (key) => {
-  const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
+export const saveStateToLocalStorage = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
+  } catch (error) {
+    console.error("Error saving state to localStorage:", error);
+  }
 };

@@ -1,67 +1,103 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// API Functions
+import { saveRoom, saveTable, updateTableAPI, deleteTable } from "../services/api_service";
+
 const initialState = {
   rooms: [],
-}
+};
 
 const tableSlice = createSlice({
   name: "tables",
   initialState,
   reducers: {
-    // Add a new room
-    addRoom: (state, action) => {
-      const { id, name } = action.payload;
-      state.rooms.push({ id, name, tables: [] });
+    setRooms: (state, action) => {
+      state.rooms = action.payload;
     },
-    // Add a table to a room
-    addTable: (state, action) => {
+    addRoomLocal: (state, action) => {
+      state.rooms.push(action.payload);
+    },
+    addTableLocal: (state, action) => {
       const { roomId, table } = action.payload;
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
         room.tables.push(table);
       }
     },
-    // Update table position (drag and drop)
-    updateTable: (state, action) => {
-      const { roomId, tableId, x, y, ...updatedData } = action.payload;
+    updateTableLocal: (state, action) => {
+      const { roomId, tableId, x, y, ...rest } = action.payload;
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
         const table = room.tables.find((t) => t.id === tableId);
         if (table) {
-          table.x = x;
-          table.y = y;
-          Object.assign(table, updatedData); // Update other properties
+          table.x = x || table.x;
+          table.y = y || table.y;
+          Object.assign(table, rest);
         }
       }
     },
-    // Delete a table
-    removeTable: (state, action) => {
+    removeTableLocal: (state, action) => {
       const { roomId, tableId } = action.payload;
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
-          room.tables = room.tables.filter((table) => table.id !== tableId);
+        room.tables = room.tables.filter((table) => table.id !== tableId);
       }
-  },
+    },
   },
 });
 
-export const { addRoom, addTable, updateTable, removeTable } = tableSlice.actions;
-export default tableSlice.reducer;
+export const {
+  setRooms,
+  addRoomLocal,
+  addTableLocal,
+  updateTableLocal,
+  removeTableLocal,
+} = tableSlice.actions;
 
-// Save state to localStorage
-export const saveStateToLocalStorage = (state) => {
-  localStorage.setItem("floorManagementState", JSON.stringify(state));
-};
-
-// Load state from localStorage
-export const loadStateFromLocalStorage = () => {
+export const fetchRooms = () => async (dispatch) => {
   try {
-    const savedState = localStorage.getItem("floorManagementState");
-    return savedState ? JSON.parse(savedState) : { rooms: [] };
-  } catch (err) {
-    console.error("Error loading from localStorage", err);
-    return null;
+    const response = await fetch("http://localhost:3000/api/tables/rooms");
+    const rooms = await response.json();
+    dispatch(setRooms(rooms));
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
   }
 };
 
+export const addRoom = (room) => async (dispatch) => {
+  try {
+    const savedRoom = await saveRoom(room);
+    dispatch(addRoomLocal(savedRoom));
+  } catch (error) {
+    console.error("Error adding room:", error);
+  }
+};
 
+export const addTable = (roomId, table) => async (dispatch) => {
+  try {
+    const savedRoom = await saveTable(roomId, table);
+    dispatch(addTableLocal({ roomId, table }));
+  } catch (error) {
+    console.error("Error adding table:", error);
+  }
+};
+
+export const updateTable = (tableData) => async (dispatch) => {
+  try {
+    const updatedRoom = await updateTableAPI(tableData);
+    dispatch(updateTableLocal(tableData));
+  } catch (error) {
+    console.error("Error updating table:", error);
+  }
+};
+
+export const removeTable = (roomId, tableId) => async (dispatch) => {
+  try {
+    await deleteTable(roomId, tableId);
+    dispatch(removeTableLocal({ roomId, tableId }));
+  } catch (error) {
+    console.error("Error deleting table:", error);
+  }
+};
+
+export default tableSlice.reducer;
