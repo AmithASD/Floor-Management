@@ -1,10 +1,8 @@
-# Getting Started with Create React App
+# Getting Started with Floor Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
-
-In the project directory, you can run:
+The Floor Management App is built to simplify the task of organizing and managing room layouts and their tables. It allows users to create custom floor plans with tables that can be adjusted, edited, or removed as required.
 
 ### `npm start`
 
