@@ -3,15 +3,24 @@ import { Form, useForm } from 'react-hook-form';
 import { Box, TextField, Button, Typography, Switch, FormControlLabel, FormGroup } from '@mui/material';
 import { Label } from '@mui/icons-material';
 
-const TableDetailsForm = ({ onSubmit }) => {
+const TableDetailsForm = ({ roomId, tableId, onSubmit , selectedTable}) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-
+  
   const handleFormSubmit = (data) => {
-    onSubmit(data); // Pass data back to the parent component
+    const tableData = {
+      id: tableId,
+      ...data,
+      online: data.online || false,
+      image:selectedTable.image,
+      shape:selectedTable.shape,
+    };
+    onSubmit(roomId, tableData);
+    reset(); // resert form inputs values
   };
 
   const { control } = useForm({
@@ -27,7 +36,7 @@ const TableDetailsForm = ({ onSubmit }) => {
           label="Table Name"
           fullWidth
           margin="dense"
-          {...register('tableName', { required: 'Table Name is required' })}
+          {...register('name', { required: 'Table Name is required' })}
           error={!!errors.tableName}
           helperText={errors.tableName?.message}
         />
@@ -63,7 +72,10 @@ const TableDetailsForm = ({ onSubmit }) => {
         />
       </FormGroup>
       <FormGroup>
-        <FormControlLabel required control={<Switch />} label="Online" />
+        <FormControlLabel
+          control={<Switch {...register('online')} />}
+          label="Online"
+        />
       </FormGroup>
       <Button type="submit" variant="contained" sx={{ mt: 2 }}>Save</Button>
       {/* </Form> */}

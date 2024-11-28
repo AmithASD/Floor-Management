@@ -23,7 +23,7 @@ import TableDetailsForm from './TableDetailsForm';
 import DraggableTable from './DraggableTable';
 import AddRoomModal from './AddRoomModel';
 import { useDispatch } from "react-redux";
-import { addRoom } from "../redux/tableSlice";
+import { addRoom, addTable } from "../redux/tableSlice";
 
 const FloorManagement = () => {
   const [tables, setTables] = useState([]);
@@ -34,8 +34,9 @@ const FloorManagement = () => {
   const [newRoomName, setNewRoomName] = useState(''); 
   const [positionX, setPositionX] = useState(); 
   const [positionY, setPositionY] = useState();
-    const [roomName, setRoomName] = useState("");
+  const [roomName, setRoomName] = useState("");
   const dispatch = useDispatch();
+  const [selectedTable, setSelectedTable] = useState(null);
 
   const handleAddTable = (table) => {
     const newTable = {
@@ -74,9 +75,28 @@ const FloorManagement = () => {
     handleCloseModal(); 
   };
 
+  const handleAddTableToRoom = (roomId, tableData) => {
+    dispatch(
+      addTable({
+        roomId,
+        table: {
+          ...tableData,
+          x: positionX || 0, // Optional: Include position
+          y: positionY || 0,
+        },
+      })
+    );
+  };
+
   const getRelativeCoords = (event) => {
     setPositionX(event.pageX)
     setPositionY(event.pageY)
+  }
+
+  const handleTableClick = (table) => {
+    console.log(" execute the function inside ")
+    setSelectedTable(table);
+    console.log(" Choose table =======>>>>>", selectedTable)
   }
 
   return (
@@ -86,8 +106,13 @@ const FloorManagement = () => {
         <Box width="20%" p={2} bgcolor="#f5f5f5" display="flex" flexDirection="column">
           <Typography variant="h3">Tables</Typography>
           <hr />
-          <TableItems onAddTable={handleAddTable} />
-          <TableDetailsForm />
+          <TableItems onAddTable={handleAddTable} onClick={handleTableClick}/>
+          <TableDetailsForm 
+            roomId={value}
+            tableId={`table-${Date.now()}`} 
+            onSubmit={handleAddTableToRoom}
+            selectedTable={selectedTable}
+          />
         </Box>
 
         {/* Main Canvas */}
@@ -108,14 +133,15 @@ const FloorManagement = () => {
                 </TabList>
               </Box>
               {rooms.map((room) => (
-                <TabPanel key={room.id} value={room.id}>
+                <TabPanel key={room.id} value={room.id} style={{border:'1px sild red'}}>
                   <div onMouseMove={(event) => getRelativeCoords(event)}>
                     <DroppableCanvas
-                      // id="canvas"
+                      id="canvas"
                       positionX={positionX}
                       positionY={positionY}
                       tables={tables}
                       onDeleteTable={handleDeleteTable}
+                      roomId={room.id} 
                     />
                   </div>
 

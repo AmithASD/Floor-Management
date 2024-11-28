@@ -23,28 +23,29 @@ const tableSlice = createSlice({
     },
     // Update table position (drag and drop)
     updateTable: (state, action) => {
-      const { roomId, tableId, x, y } = action.payload;
+      const { roomId, tableId, x, y, ...updatedData } = action.payload;
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
         const table = room.tables.find((t) => t.id === tableId);
         if (table) {
           table.x = x;
           table.y = y;
+          Object.assign(table, updatedData); // Update other properties
         }
       }
     },
     // Delete a table
-    deleteTable: (state, action) => {
+    removeTable: (state, action) => {
       const { roomId, tableId } = action.payload;
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
-        room.tables = room.tables.filter((t) => t.id !== tableId);
+          room.tables = room.tables.filter((table) => table.id !== tableId);
       }
-    },
+  },
   },
 });
 
-export const { addRoom, addTable, updateTable, deleteTable } = tableSlice.actions;
+export const { addRoom, addTable, updateTable, removeTable } = tableSlice.actions;
 export default tableSlice.reducer;
 
 // Save state to localStorage
@@ -54,6 +55,13 @@ export const saveStateToLocalStorage = (state) => {
 
 // Load state from localStorage
 export const loadStateFromLocalStorage = () => {
-  const savedState = localStorage.getItem("floorManagementState");
-  return savedState ? JSON.parse(savedState) : { rooms: [] };
+  try {
+    const savedState = localStorage.getItem("floorManagementState");
+    return savedState ? JSON.parse(savedState) : { rooms: [] };
+  } catch (err) {
+    console.error("Error loading from localStorage", err);
+    return null;
+  }
 };
+
+
