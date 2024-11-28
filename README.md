@@ -24,16 +24,19 @@ Double-click on a table to edit its details.
 
 ## Technologies Used
 
-React: For building the user interface.\
-Redux Toolkit: For state management.\
-React Draggable: For drag-and-drop functionality.\
-Material-UI: For UI components like dialogs and buttons.\
+- **React :** For building the user interface.\
+- **Redux Toolkit :** For state management.\
+- **React Draggable :** For drag-and-drop functionality.\
+- **Material-UI :** For UI components like dialogs and buttons.\
 
 ## Usage Instructions
 
 ### `Clone the repository:`
 
-Repository Link: [https://github.com/AmithASD/Floor-Management](https://github.com/AmithASD/Floor-Management)
+To get started, clone this repository to your local machine using the following command:
+
+
+git clone [https://github.com/AmithASD/Floor-Management](https://github.com/AmithASD/Floor-Management)
 
 ### Install dependencies:
 
@@ -49,9 +52,9 @@ npm start
 
 ## Folder Structure
 
-- **Components:** Contains React components such as DroppableCanvas.\
-redux: Contains Redux slices for managing state (tableSlice).\
-styles: Contains CSS files or theme settings.
+- **Components :** Contains React components such as DroppableCanvas.\
+- **redux :** Contains Redux slices for managing state (tableSlice).\
+- **styles :** Contains CSS files or theme settings.
 
 ## Future Enhancements
 
