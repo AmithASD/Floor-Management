@@ -4,32 +4,23 @@
 
 The Floor Management App is built to simplify the task of organizing and managing room layouts and their tables. It allows users to create custom floor plans with tables that can be adjusted, edited, or removed as required.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `Add Rooms:`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Click the "Add Room" button to create a new room.\
+Provide the room name and other details.
 
-### `npm test`
+### `Add Tables:`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+After creating a room, click "Add Table" to add tables to the selected room.\
+Fill in the table details and save them.
 
-### `npm run build`
+### `Manage Tables:`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Drag and drop tables to arrange their positions.\
+Click the delete icon to remove a table.\
+Double-click on a table to edit its details.
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
