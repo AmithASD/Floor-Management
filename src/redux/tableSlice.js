@@ -62,7 +62,6 @@ export const loadStateFromLocalStorage = () => {
     console.error("Error loading from localStorage", err);
     return null;
   }
-  
 };
 
 
