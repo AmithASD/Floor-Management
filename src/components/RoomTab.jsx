@@ -38,6 +38,7 @@ const FloorManagement = () => {
   const dispatch = useDispatch();
   const [selectedTable, setSelectedTable] = useState(null);
 
+
   const handleAddTable = (table) => {
     const newTable = {
       id: `${table.id}-${tables.length + 1}`,
@@ -116,6 +117,8 @@ const FloorManagement = () => {
             tableId={`table-${Date.now()}`} 
             onSubmit={handleAddTableToRoom}
             selectedTable={selectedTable}
+            positionX= {positionX}
+            positionY= {positionY}
           />
         </Box>
 

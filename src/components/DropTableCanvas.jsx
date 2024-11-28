@@ -2,26 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import Draggable from 'react-draggable';
 import {
-  Box,
-  Typography,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
+    Box,
+    Typography,
+    IconButton,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    TextField,
 } from "@mui/material";
 import { Delete, RotateRight, ViewHeadline } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { removeTable, updateTable } from '../redux/tableSlice';
+import TableDetailsForm from './TableDetailsForm';
+import { useTableContext } from '../context/tableContext';
+import { setSelectedTableAdvanced } from '../redux/tableSlice';
 
 const DroppableCanvas = ({ onDeleteTable, roomId }) => {
     const [droppedTables, setDroppedTables] = useState([]);
+    // const [selectedTableAdvanced, setSelectedTableAdvanced] = useState(null);
     const [selectedTable, setSelectedTable] = useState(null);
+    // const [selectedTableAdvanced, setSelectedTableAdvanced] = useState(null);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const { setSelectedTableAdvanced } = useTableContext();
 
     // const [{ isOver }, dropRef] = useDrop({
     //     accept: 'table',
@@ -42,6 +48,7 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
 
     const controlledPosition = (e) => {
         console.log("position ====> ", e.pageX)
+        console.log("position ====> ", e.pageX)
     }
     const tables = useSelector((state) => {
         const room = state.tables.rooms.find((room) => room.id === roomId);
@@ -55,6 +62,11 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
     const handleTableDoubleClick = (table) => {
         setSelectedTable(table);
         setEditModalOpen(true);
+    };
+    const handleTableClickOneTime = (table) => {
+        setSelectedTableAdvanced(table);
+        // console.log(" selectedTableAdvanced===========>>>>>", selectedTableAdvanced);
+        // return( <TableDetailsForm selectedTableAdvanced={selectedTableAdvanced}/>);
     };
 
     const handleSaveTableChanges = () => {
@@ -74,11 +86,11 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
     };
 
     const handleDragStop = (e, data, tableId) => {
-        const canvasWidth = 100;
+        const canvasWidth = 800;
         const canvasHeight = 800;
-        const tableWidth = 100; 
-        const tableHeight = 100; 
-        
+        const tableWidth = 0;
+        const tableHeight = 0;
+
         const correctedX = Math.max(0, Math.min(data.x, canvasWidth - tableWidth));
         const correctedY = Math.max(0, Math.min(data.y, canvasHeight - tableHeight));
 
@@ -90,7 +102,7 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
         <Box
             // ref={dropRef}
             p={2}
-            border={ '2px dashed gray'}
+            border={'2px dashed gray'}
             borderRadius="8px"
             height="75vh"
             width='73vw'
@@ -103,7 +115,7 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
             {tables.map((table, index) => (
                 <Draggable
                     defaultPosition={{ x: 0, y: 0 }}
-                     bounds="#main-room-outer"
+                    bounds="#main-room-outer"
                     onMouseDown={(event) => controlledPosition(event)}
                     onStop={(e, data) => handleDragStop(e, data, table.id)}
                 >
@@ -118,6 +130,7 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
                         p={1}
                         textAlign="center"
                         draggable="false"
+                        onClick={() => handleTableClickOneTime(table)}
                         onDoubleClick={() => handleTableDoubleClick(table)}
                     >
                         <Typography>{table.name}</Typography>
