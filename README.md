@@ -35,24 +35,28 @@ Material-UI: For UI components like dialogs and buttons.\
 
 Repository Link: [https://github.com/AmithASD/Floor-Management](https://github.com/AmithASD/Floor-Management)
 
-This section has moved here: [git clone https://facebook.github.io/create-react-app/docs/code-splitting](git clone https://facebook.github.io/create-react-app/docs/code-splitting)
+### Install dependencies:
 
-### Analyzing the Bundle Size
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Run the application:
 
-### Making a Progressive Web App
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Access the app at:
 
-### Advanced Configuration
+[http://localhost:3000](http://localhost:3000)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Folder Structure
 
-### Deployment
+- **Components:** Contains React components such as DroppableCanvas.\
+redux: Contains Redux slices for managing state (tableSlice).\
+styles: Contains CSS files or theme settings.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Future Enhancements
 
-### `npm run build` fails to minify
+Add support for exporting room layouts as images.\
+Integrate a database for multi-user functionality.\
+Add advanced room settings like area dimensions and table capacity analytics.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
