@@ -65,8 +65,6 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
     };
     const handleTableClickOneTime = (table) => {
         setSelectedTableAdvanced(table);
-        // console.log(" selectedTableAdvanced===========>>>>>", selectedTableAdvanced);
-        // return( <TableDetailsForm selectedTableAdvanced={selectedTableAdvanced}/>);
     };
 
     const handleSaveTableChanges = () => {
@@ -93,6 +91,11 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
 
         const correctedX = Math.max(0, Math.min(data.x, canvasWidth - tableWidth));
         const correctedY = Math.max(0, Math.min(data.y, canvasHeight - tableHeight));
+
+        // console.log("handlePositionSubmit roomId ===================>>>>>>>",roomId );
+        // console.log("handlePositionSubmit tableId ===================>>>>>>>",tableId );
+        // console.log("handlePositionSubmit x ===================>>>>>>>",correctedX );
+        // console.log("handlePositionSubmit y ===================>>>>>>>",correctedY );
 
         dispatch(updateTable({ roomId, tableId, x: correctedX, y: correctedY }));
     };

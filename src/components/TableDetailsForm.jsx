@@ -5,7 +5,7 @@ import { CheckBox, Label } from '@mui/icons-material';
 import { useTableContext } from '../context/tableContext';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { updateTable} from '../redux/tableSlice';
+import { updateTable } from '../redux/tableSlice';
 
 const TableDetailsForm = ({ roomId, tableId, onSubmit, selectedTable, positionX, positionY }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -14,6 +14,7 @@ const TableDetailsForm = ({ roomId, tableId, onSubmit, selectedTable, positionX,
   const [yAxis, setYAxis] = useState(selectedTableAdvanced?.y || '0');
   const dispatch = useDispatch();
 
+  console.log("selectedTableAdvanced form page ====>>>>>>", selectedTableAdvanced);
   console.log("selectedTableAdvanced?.x ====>>>>>>", xAxis);
   console.log("selectedTableAdvanced?.y ====>>>>>>", yAxis);
 
@@ -25,7 +26,6 @@ const TableDetailsForm = ({ roomId, tableId, onSubmit, selectedTable, positionX,
     formState: { errors },
   } = useForm();
 
-  console.log("selectedTableAdvanced for form =====>>>>", selectedTableAdvanced);
 
   const handleFormSubmit = (data) => {
     const tableData = {
@@ -63,13 +63,31 @@ const TableDetailsForm = ({ roomId, tableId, onSubmit, selectedTable, positionX,
   };
 
   const handlePositionSubmit = () => {
-    console.log("handlePositionSubmit roomId ===================>>>>>>>",roomId );
-    console.log("handlePositionSubmit tableId ===================>>>>>>>",tableId );
-    console.log("handlePositionSubmit x ===================>>>>>>>",xAxis );
-    console.log("handlePositionSubmit y ===================>>>>>>>",yAxis );
+    const updatedX = xAxis; // Use the current state
+    const updatedY = yAxis; // Use the current state
+
+    console.log("handlePositionSubmit roomId ===================>>>>>>>", roomId);
+    console.log("handlePositionSubmit tableId ===================>>>>>>>", tableId);
+    console.log("handlePositionSubmit x ===================>>>>>>>", updatedX);
+    console.log("handlePositionSubmit y ===================>>>>>>>", updatedY);
 
     // dispatch(updateTable({ roomId, tableId, x: xAxis, y: yAxis }));
-    dispatch(updateTable({ roomId, tableId, x: xAxis, y: yAxis  }))
+    // dispatch(updateTable({roomId, tableId, x: xAxis, y: yAxis} ))
+
+    if (selectedTableAdvanced) {
+      const { id, x, y, ...updatedData } = selectedTableAdvanced;
+      console.log("selectedTableAdvanced handlePositionSubmit===================>>>>>>>", id, x, y,);
+
+      dispatch(
+        updateTable({
+          roomId,
+          tableId: id,
+          x: updatedX,
+          y: updatedY,
+          ...updatedData,
+        })
+      );
+    }
   };
 
   return (

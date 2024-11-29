@@ -24,6 +24,7 @@ const tableSlice = createSlice({
     // Update table position (drag and drop)
     updateTable: (state, action) => {
       const { roomId, tableId, x, y, ...updatedData } = action.payload;
+      console.log("Action payload in reducer:", action.payload);
       const room = state.rooms.find((room) => room.id === roomId);
       if (room) {
         const table = room.tables.find((t) => t.id === tableId);
