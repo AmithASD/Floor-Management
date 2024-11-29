@@ -117,7 +117,8 @@ const DroppableCanvas = ({ onDeleteTable, roomId }) => {
             {/* {droppedTables.map((table, index) => ( */}
             {tables.map((table, index) => (
                 <Draggable
-                    defaultPosition={{ x: 0, y: 0 }}
+                    // defaultPosition={{ x: 0, y: 0 }}
+                    defaultPosition={{ x: table.x, y: table.y }}
                     bounds="#main-room-outer"
                     onMouseDown={(event) => controlledPosition(event)}
                     onStop={(e, data) => handleDragStop(e, data, table.id)}
